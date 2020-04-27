@@ -1,0 +1,28 @@
+#!/bin/bash
+f510=$(<5.static/INCAR)
+function to_opt_INCAR(){
+f510="${f510[@]/ISTART = 0/ISTART = 1}"
+f510="${f510[@]/ICHARG = 11/ICHARG = 2}"
+f510="${f510[@]/LWAVE = .TRUE./LWAVE = .FALSE.}"
+f510="${f510[@]/LCHARG = .TRUE./LCHARG = .FALSE.}"
+f510="${f510[@]/ISMEAR = 1/ISMEAR = -5}"
+f510="${f510[@]/ISMEAR = 0/ISMEAR = -5}"
+}
+to_opt_INCAR
+function to_opt(){
+mkdir 10.optics
+cp 5.static/POTCAR 10.optics/POTCAR
+cp 5.static/CONTCAR 10.optics/POSCAR
+cp 5.static/KPOINTS 10.optics/KPOINTS
+cp 5.static/WAVECAR 10.optics/WAVECAR
+echo "$f510" > 10.optics/INCAR
+echo -e '' >> 10.optics/INCAR
+echo '#= Optics Settings =#' >> 10.optics/INCAR
+echo 'LOPTICS = .TRUE.' >> 10.optics/INCAR
+echo 'NBANDS = 400' >> 10.optics/INCAR
+echo 'NEDOS = 2000' >> 10.optics/INCAR
+echo 'LRPA = .TRUE.' >> 10.optics/INCAR
+echo 'NPAR = 1' >> 10.optics/INCAR
+}
+to_opt
+

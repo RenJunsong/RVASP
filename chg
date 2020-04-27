@@ -1,0 +1,17 @@
+#!/bin/bash
+#for INCAR setting
+f57=$(<5.static/INCAR)
+function to_chg_INCAR(){
+f57="${f57[@]/LWAVE = .TRUE./LWAVE = .FALSE.}"
+f57="${f57[@]/LCHARG = .FALSE./LCHARG = .TRUE.}"
+}
+to_chg_INCAR
+function to_chg(){
+mkdir 7.chg
+cp 5.static/POTCAR 7.chg/POTCAR
+cp 5.static/CONTCAR 7.chg/POSCAR
+cp 5.static/KPOINTS 7.chg/KPOINTS
+echo "$f57" > 7.chg/INCAR
+}
+to_chg
+

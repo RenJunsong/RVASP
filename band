@@ -1,0 +1,21 @@
+#!/bin/bash
+#for INCAR setting
+f78=$(<7.chg/INCAR)
+function to_band_INCAR(){
+f78="${f78[@]/ICHARG = 2/ICHARG = 11}"
+f78="${f78[@]/ISMEAR = -5/ISMEAR = 0}"
+f78="${f78[@]/LWAVE = .TRUE./LWAVE = .FALSE.}"
+f78="${f78[@]/LCHARG = .TRUE./LCHARG = .FALSE.}"
+}
+to_band_INCAR
+function to_band(){
+mkdir 8.band
+cp 7.chg/POSCAR 8.band/POSCAR
+cp 7.chg/POTCAR 8.band/POTCAR
+cp 7.chg/CHGCAR 8.band/CHGCAR
+KP="$(pwd)/KPOINTS_band"
+cp $KP 8.band/KPOINTS
+echo "$f78" > 8.band/INCAR
+}
+to_band
+

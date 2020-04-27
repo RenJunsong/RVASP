@@ -1,0 +1,19 @@
+#!/bin/bash
+#for INCAR setting
+f=$(<5.relax/INCAR)
+function to_static_INCAR(){
+f="${f[@]/IBRION/#IBRION}"
+f="${f[@]/NSW/#NSW}"
+f="${f[@]/ISIF/#ISIF}"
+f="${f[@]/LWAVE = .FALSE./LWAVE = .TRUE.}"
+}
+to_static_INCAR
+function to_static(){
+mkdir 5.static
+cp 5.relax/POTCAR 5.static/POTCAR
+cp 5.relax/CONTCAR 5.static/POSCAR
+cp 5.relax/KPOINTS 5.static/KPOINTS
+echo "$f" > 5.static/INCAR
+}
+to_static
+

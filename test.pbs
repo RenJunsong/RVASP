@@ -1,0 +1,16 @@
+#PBS -N test
+#PBS -l nodes=1:ppn=20
+#PBS -j oe
+#PBS -l walltime=240:00:00
+#PBS -q high
+
+echo "This job is "$PBS_JOBID@$PBS_QUEUE
+cd $PBS_O_WORKDIR
+pwd
+nproc=$(cat $PBS_NODEFILE | wc -l)
+echo $nproc
+mpirun -np $nproc -machinefile $PBS_NODEFILE vasp_std
+##RunCASTEP.sh BaSnO3
+
+##说明：当vasp计算时，倒数第二行##号删掉，最后一行##号保留；之后提交计算，命令为qsub test.pbs
+##说明：当castep计算时，倒数第二行##号保留，最后一行##号删掉，把“BaSnO3”修改为新文件名；之后提交计算，命令为qsub test.pbs

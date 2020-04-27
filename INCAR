@@ -1,0 +1,44 @@
+#= General Settings =#
+System = Name
+PREC = Accurate
+ENCUT = 520
+
+#= Change Settings =#
+ISTART = 0
+ICHARG = 2
+GGA = PS
+
+#= Write Flag Settings =#
+LWAVE = .FALSE.
+LCHARG = .FALSE.
+
+#= Ionic Relaxation Settings =#
+IBRION = 2
+ISIF = 3
+NSW = 99
+
+#= Electronic Relaxation Settings =#
+
+EDIFF = 0.001
+NELM = 100
+
+#= DOS =#
+ISMEAR = -5
+SIGMA = 0.05
+ALGO = Fast
+LORBIT = 11
+
+#= Magnetic Settings =#
+ISPIN = 2
+MAGMOM = 16*0 2*2 2*-2 2 2*-2 2 2*-2 2*2 -2 2*2 -2 48*0
+
+#= +U Fields =#
+LDAU = .TRUE.
+LDAUTYPE = 2
+LDAUL = -1 2 -1
+LDAUU = 0 4.6 0
+LDAUJ = 0 0.6 0
+LDAUPRINT = 1
+LASPH = .TRUE.
+LMAXMIX = 6
+LREAL = Auto

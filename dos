@@ -1,0 +1,27 @@
+#!/bin/bash
+#for INCAR setting
+f79=$(<7.chg/INCAR)
+function to_dos_INCAR(){
+f79="${f79[@]/ICHARG = 2/ICHARG = 11}"
+f79="${f79[@]/ISMEAR = 1/ISMEAR = -5}"
+f79="${f79[@]/ISMEAR = 0/ISMEAR = -5}"
+f79="${f79[@]/LWAVE = .TRUE./LWAVE = .FALSE.}"
+f79="${f79[@]/LCHARG = .TRUE./LCHARG = .FALSE.}"
+}
+to_dos_INCAR
+function to_dos(){
+mkdir 9.dos
+cp 7.chg/POTCAR 9.dos/POTCAR
+cp 7.chg/POSCAR 9.dos/POSCAR
+cp 7.chg/CHGCAR 9.dos/CHGCAR
+KP="$(pwd)/KPOINTS_dos"
+cp $KP 9.dos/KPOINTS
+echo "$f79" > 9.dos/INCAR
+echo -e '' >> 9.dos/INCAR
+echo '#= DOS Addition Settings =#' >> 9.dos/INCAR
+echo 'NEDOS = 1000' >> 9.dos/INCAR
+echo 'EMIN = -12' >> 9.dos/INCAR
+echo 'EMAX = 18' >> 9.dos/INCAR
+}
+to_dos
+
