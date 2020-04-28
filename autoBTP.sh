@@ -1,5 +1,4 @@
 #!/bin/bash
-# To auto-run boltztrap
 python ~/renjunsong/tools/EIGENVAL_up_down.py
 function btp(){
     ~/soft/boltztrap-1.2.5/src/x_trans BoltzTraP
