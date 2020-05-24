@@ -23,7 +23,7 @@ kill -9 34253
 ## MGI
 
 ### 初始化
-将所以脚本移入`~/renjunsong/tools`并进入,运行`bash initial.sh`,此脚本目的是为了生成需要的别名alias,包括rpotcat, rcopy, rtotal, rbtp and rmgi。可以通过`alias`查看。
+将所有脚本移入`~/renjunsong/tools`并进入,运行`bash initial.sh`,此脚本目的是为了生成需要的别名alias,包括rpotcat, rcopy, rtotal, rbtp and rmgi。可以通过`alias`查看。
 ### 提交脚本
 在需要计算的文件夹中输入rmgi num1 num2即可开始提交并计算，其中num1表示需要计算的步骤的代号乘积，对应为2:优化,3:静态,5:chg,7:band,11:dos,13:optics。num2表示功能的代号乘积，对应为2:静态是否保留WAVECAR,3:dos待定功能,5:光学计算时候为金属体。
 
