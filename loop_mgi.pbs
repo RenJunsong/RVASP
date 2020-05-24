@@ -1,5 +1,5 @@
-#PBS -N rtest,ppn=40
-#PBS -l nodes=1:ppn=40
+#PBS -N rtest_1_20
+#PBS -l nodes=1:ppn=20
 #PBS -j oe
 #PBS -l walltime=240:00:00
 #PBS -q high
@@ -168,7 +168,7 @@ cd ..
 done
 }
 
-temp1=11
+temp1=55
 temp2=1
 ##choose $temp1 $temp2
 loop $temp1 $temp2
