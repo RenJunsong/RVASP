@@ -1,5 +1,4 @@
 #!/bin/bash
-## This script is to automatically complete the boltztrap calculation, you can add temperature parameters, the default is 300 300
 python ~/renjunsong/tools/EIGENVAL_up_down.py
 function btp(){
     ~/soft/boltztrap-1.2.5/src/x_trans BoltzTraP
@@ -25,13 +24,13 @@ mv EIGENVAL_def EIGENVAL
 rm EIGENVAL_up
 rm EIGENVAL_down
 cd boltztrap_up
-sed -i "8c $1   $2" boltztrap_up.intrans
+sed -i '8c 300. 300.' boltztrap_up.intrans
 btp
 cd ..
 mv boltztrap_up/boltztrap_up.trace boltztrap_up.trace
 rm boltztrap_up -r
 cd boltztrap_down
-sed -i "8c $1   $2" boltztrap_down.intrans
+sed -i '8c 300. 300.' boltztrap_down.intrans
 btp
 cd ..
 mv boltztrap_down/boltztrap_down.trace boltztrap_down.trace
@@ -46,21 +45,17 @@ function check_up(){
         mv case.intrans boltztrap_up/boltztrap_up.intrans
         mv case.energy boltztrap_up/boltztrap_up.energy
         mv case.struct boltztrap_up/boltztrap_up.struct
-        cd boltztrap_up
-        sed -i "8c $1  $2" boltztrap_up.intrans
-        btp
-        cd ..
-        mv boltztrap_up/boltztrap_up.trace boltztrap_up.trace
-        rm boltztrap_up -r
     else
-        up_down $1 $2
+        up_down
     fi
+    cd boltztrap_up
+    sed -i '8c 300. 300.' boltztrap_up.intrans
+    btp
+    cd ..
+    mv boltztrap_up/boltztrap_up.trace boltztrap_up.trace
+    rm boltztrap_up -r
 }
 
-if [ $# == 2 ]; then
-    check_up $1 $2
-else
-    check_up 300. 300.
-fi
+check_up
 rm FERMI_ENERGY
 

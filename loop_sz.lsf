@@ -1,17 +1,40 @@
-#PBS -N rtest_1_20
-#PBS -l nodes=1:ppn=20
-#PBS -j oe
-#PBS -l walltime=24000:00:00
-#PBS -q high
-echo "This job is "$PBS_JOBID@$PBS_QUEUE
-cd $PBS_O_WORKDIR
-pwd
-nproc=$(cat $PBS_NODEFILE | wc -l)
-echo $nproc
+#!/bin/sh
+APP_NAME=intelY_mid
+NP=24
+NP_PER_NODE=12
+RUN="RAW"
+CURDIR=$PWD
+
+VASP=/home-yw/Soft/Vasp5.4/vasp_std
+source  /home-yw/env/intel-12.1.sh
+source  /home-yw/env/openmpi-1.6.5-intel.sh
+
+cd $CURDIR
+
+#start creating .nodelist
+rm -rf $CURDIR/nodelist >& /dev/null
+for i in `echo $LSB_HOSTS`
+do
+    echo "$i" >> $CURDIR/nodelist
+done
+nodelist=$(cat $CURDIR/nodelist | uniq | awk '{print $1}' | tr '\n' ',')
 
 function runvasp(){
-mpirun -np $nproc -machinefile $PBS_NODEFILE vasp_std
+#
+echo -n "start time  " > time
+date >> time
+
+# for GK & YW users
+touch WAVECAR PCDAT IBZKPT XDATCAR OSZICAR CONTCAR CHG PROCAR OUTCAR EIGENVAL DOSCAR CHGCAR
+sleep 10
+
+mpirun -np $NP -machinefile $CURDIR/nodelist $VASP  &> vasp.out
+echo -n "end   time  " >> time ; date >> time
+cat time >> vasp.out
+#
 }
+
+
 
 function check(){
 if [ ! -f "OUTCAR" ] ;then
@@ -29,7 +52,7 @@ fi
 }
 
 
-function s5.relax(){
+function s5_relax(){
 cp 1 5.relax -r
 cd 5.relax
 runvasp
@@ -37,7 +60,7 @@ check
 cd ..
 }
 
-function s5.static.opt(){
+function s5_static_opt(){
 bash ~/renjunsong/tools/static_opt
 cd 5.static
 runvasp
@@ -45,7 +68,7 @@ check
 cd ..
 }
 
-function s5.static(){
+function s5_static(){
 bash ~/renjunsong/tools/static
 cd 5.static
 runvasp
@@ -100,13 +123,13 @@ cd ..
 
 function main(){
 if [ $(($1 % 2)) == 0 ]; then
-s5.relax
+s5_relax
 fi
 if [ $(($1 % 3)) == 0 ]; then
 if [ $(($2 % 2)) == 0 ]; then
-s5.static.opt
+s5_static_opt
 else
-s5.static
+s5_static
 fi
 fi
 if [ $(($1 % 5)) == 0 ]; then
@@ -176,9 +199,9 @@ cd ..
 done
 }
 
-
 ####LLLL###Don`t delete this line###
 loop 6 2
 ##choose $temp1 $temp2
 ##loop $temp1 $temp2
 ##main $temp1 $temp2
+exit

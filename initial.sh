@@ -7,6 +7,7 @@ alias rpotcar='bash ~/renjunsong/tools/getPOTCAR.sh'
 alias rtotal='bash ~/renjunsong/tools/getTOTEN.sh'
 alias rcopy='bash ~/renjunsong/tools/copytool.sh'
 alias rmgi='bash ~/renjunsong/tools/c_loop_mgi.sh'
+alias rsz='bash ~/renjunsong/tools/c_loop_sz.sh'
 !
 source ~/.bashrc
 fi

@@ -82,19 +82,6 @@ rm sz_vasp_yw.lsf
 cd ..
 }
 
-function s8_up_down(){
-bash ~/renjunsong/tools/band
-cd 8.band
-cp ~/renjunsong/tools/sz_vasp_yw.lsf sz_vasp_yw.lsf
-rm OUTCAR
-runvasp
-checkdone
-python ~/renjunsong/tools/bandscript.py
-python ~/renjunsong/tools/bandscriptdown.py
-rm sz_vasp_yw.lsf
-cd ..
-}
-
 function s9(){
 bash ~/renjunsong/tools/dos
 cd 9.dos
@@ -119,13 +106,13 @@ cd ..
 }
 
 function main(){
-s5.relax
-s5.static
+##s5.relax
+##s5.static
 ##s5.static.opt
 s7
-s8
+##s8
 s9
-s10
+##s10
 }
 
 function loop(){
@@ -134,11 +121,11 @@ do
 if [[ $i == no* ]] ; then
 continue
 fi
-cp KPOINTS_band $i/KPOINTS_band
+##cp KPOINTS_band $i/KPOINTS_band
 cp KPOINTS_dos $i/KPOINTS_dos
 cd $i
 main
-rm KPOINTS_band
+##rm KPOINTS_band
 rm KPOINTS_dos
 cd ..
 done
