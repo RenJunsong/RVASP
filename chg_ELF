@@ -1,0 +1,20 @@
+#!/bin/bash
+#Add to cal the ELFCAR and the bader chage
+#for INCAR setting
+f57=$(<5.static/INCAR)
+function to_chg_INCAR(){
+f57="${f57[@]/LWAVE = .TRUE./LWAVE = .FALSE.}"
+f57="${f57[@]/LCHARG = .FALSE./LCHARG = .TRUE.}"
+}
+to_chg_INCAR
+function to_chg(){
+mkdir 7.chg_ELF
+cp 5.static/POTCAR 7.chg_ELF/POTCAR
+cp 5.static/CONTCAR 7.chg_ELF/POSCAR
+cp 5.static/KPOINTS 7.chg_ELF/KPOINTS
+echo "$f57" > 7.chg_ELF/INCAR
+echo "LAECHG = .TRUE." >> 7.chg_ELF/INCAR
+echo "LELF = .TRUE." >> 7.chg_ELF/INCAR
+}
+to_chg
+

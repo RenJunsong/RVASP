@@ -19,7 +19,7 @@ echo "$f510" > 10.optics/INCAR
 echo -e '' >> 10.optics/INCAR
 echo '#= Optics Settings =#' >> 10.optics/INCAR
 echo 'LOPTICS = .TRUE.' >> 10.optics/INCAR
-echo 'NBANDS = 400' >> 10.optics/INCAR
+echo 'NBANDS = 800' >> 10.optics/INCAR
 echo 'NEDOS = 2000' >> 10.optics/INCAR
 echo 'LRPA = .TRUE.' >> 10.optics/INCAR
 echo 'NPAR = 1' >> 10.optics/INCAR

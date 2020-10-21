@@ -61,6 +61,14 @@ check
 cd ..
 }
 
+function s7_ELF(){
+bash ~/renjunsong/tools/chg_ELF
+cd 7.chg_ELF
+runvasp
+check
+cd ..
+}
+
 function s8(){
 bash ~/renjunsong/tools/band
 cd 8.band
@@ -110,13 +118,17 @@ s5.static
 fi
 fi
 if [ $(($1 % 5)) == 0 ]; then
+if [ $(($2 % 3)) == 0 ]; then
+s7_ELF
+else
 s7
+fi
 fi
 if [ $(($1 % 7)) == 0 ]; then
 s8
 fi
 if [ $(($1 % 11)) == 0 ]; then
-if [ $(($2 % 3)) == 0 ]; then
+if [ $(($2 % 5)) == 0 ]; then
 s9
 else
 s9
@@ -178,7 +190,7 @@ done
 
 
 ####LLLL###Don`t delete this line###
-loop 6 2
+main 39 2
 ##choose $temp1 $temp2
 ##loop $temp1 $temp2
 ##main $temp1 $temp2

@@ -45,7 +45,9 @@ function check_up(){
         mv case.intrans boltztrap_up/boltztrap_up.intrans
         mv case.energy boltztrap_up/boltztrap_up.energy
         mv case.struct boltztrap_up/boltztrap_up.struct
+        echo "No E_U"
     else
+        echo "up_dow"
         up_down
     fi
     cd boltztrap_up
