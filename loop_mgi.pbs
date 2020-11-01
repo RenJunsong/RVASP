@@ -15,7 +15,7 @@ mpirun -np $nproc -machinefile $PBS_NODEFILE vasp_std
 
 function check(){
 if [ ! -f "OUTCAR" ] ;then
-echo "$(pwd) error_no_OUTCAR" > ~/renjunsong/tools/errorinfo
+echo "$(pwd) error_no_OUTCAR" > $RVASP_path/errorinfo
 exit
 fi
 tail "OUTCAR" > "OUTINFO"
@@ -23,7 +23,7 @@ outcheck=$(grep "Voluntary context switches:" OUTINFO)
 rm OUTINFO
 if [ -z "$outcheck" ]
 then
-echo "$(pwd) error" > ~/renjunsong/tools/errorinfo
+echo "$(pwd) error" > $RVASP_path/errorinfo
 exit
 fi
 }
@@ -38,7 +38,7 @@ cd ..
 }
 
 function s5.static.opt(){
-bash ~/renjunsong/tools/static_opt
+bash ${RVASP_path}/calc_step/static_opt
 cd 5.static
 runvasp
 check
@@ -46,7 +46,7 @@ cd ..
 }
 
 function s5.static(){
-bash ~/renjunsong/tools/static
+bash ${RVASP_path}/calc_step/static
 cd 5.static
 runvasp
 check
@@ -54,55 +54,51 @@ cd ..
 }
 
 function s7(){
-bash ~/renjunsong/tools/chg
+bash ${RVASP_path}/calc_step/chg
 cd 7.chg
 runvasp
 check
+cp INCAR INCAR_ELF
+mv INCAR_step INCAR
+bash ${RVASP_path}/bader_charge/get_bader_charge.sh
 cd ..
 }
 
-function s7_ELF(){
-bash ~/renjunsong/tools/chg_ELF
-cd 7.chg_ELF
-runvasp
-check
-cd ..
-}
 
 function s8(){
-bash ~/renjunsong/tools/band
+bash ${RVASP_path}/calc_step/band
 cd 8.band
 runvasp
 check
-python ~/renjunsong/tools/bandscript.py
+python ${RVASP_path}/calc_step/bandscript.py
 cd ..
 }
 
 
 function s9(){
-bash ~/renjunsong/tools/dos
+bash ${RVASP_path}/calc_step/dos
 cd 9.dos
 runvasp
 check
-python ~/renjunsong/tools/dosscript.py
+python ${RVASP_path}/calc_step/dosscript.py
 cd ..
 }
 
 function s10(){
-bash ~/renjunsong/tools/optics
+bash ${RVASP_path}/calc_step/optics
 cd 10.optics
 runvasp
 check
-python ~/renjunsong/tools/optscript.py
+python ${RVASP_path}/calc_step/optscript.py
 cd ..
 }
 
 function s10_metal(){
-bash ~/renjunsong/tools/optics_metal
+bash ${RVASP_path}/calc_step/optics_metal
 cd 10.optics
 runvasp
 check
-python ~/renjunsong/tools/optscript.py
+python ${RVASP_path}/calc_step/optscript.py
 cd ..
 }
 
@@ -119,7 +115,7 @@ fi
 fi
 if [ $(($1 % 5)) == 0 ]; then
 if [ $(($2 % 3)) == 0 ]; then
-s7_ELF
+s7
 else
 s7
 fi
@@ -135,10 +131,14 @@ s9
 fi
 fi
 if [ $(($1 % 13)) == 0 ]; then
-if [ $(($2 % 5)) == 0 ]; then
+if [ $(($2 % 7)) == 0 ]; then
 s10_metal
 else
 s10
+if [ -e 10.optics/optdata.csv ]; then
+    rm -r 10.optics
+    s10_metal
+fi
 fi
 fi
 }
@@ -190,7 +190,7 @@ done
 
 
 ####LLLL###Don`t delete this line###
-main 39 2
+loop 30030 2
 ##choose $temp1 $temp2
 ##loop $temp1 $temp2
 ##main $temp1 $temp2

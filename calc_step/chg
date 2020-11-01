@@ -11,7 +11,11 @@ mkdir 7.chg
 cp 5.static/POTCAR 7.chg/POTCAR
 cp 5.static/CONTCAR 7.chg/POSCAR
 cp 5.static/KPOINTS 7.chg/KPOINTS
+echo "$f57" > 7.chg/INCAR_step
 echo "$f57" > 7.chg/INCAR
+echo '## bader_charge and ELF set##' >> 7.chg/INCAR
+echo 'LAECHG = .TRUE.' >> 7.chg/INCAR
+echo 'LELF = .TRUE.' >> 7.chg/INCAR
 }
 to_chg
 

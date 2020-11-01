@@ -1,7 +1,17 @@
 #!/bin/bash
-python ~/renjunsong/tools/EIGENVAL_up_down.py
+## Need to set the path where boltztrap is installed ,and the T of intrans##
+boltztrap_path=$HOME/soft/boltztrap-1.2.5
+## Settings ##
+
+T1="300."
+T2="300."
+if [ $# -eq 2 ]; then
+T1=$1
+T2=$2
+fi
+python $RVASP_path/boltztrap/EIGENVAL_up_down.py
 function btp(){
-    ~/soft/boltztrap-1.2.5/src/x_trans BoltzTraP
+    $boltztrap_path/src/x_trans BoltzTraP
     rm :log
 }
 function up_down(){
@@ -24,13 +34,13 @@ mv EIGENVAL_def EIGENVAL
 rm EIGENVAL_up
 rm EIGENVAL_down
 cd boltztrap_up
-sed -i '8c 300. 300.' boltztrap_up.intrans
+sed -i "8c $T1 $T2" boltztrap_up.intrans
 btp
 cd ..
 mv boltztrap_up/boltztrap_up.trace boltztrap_up.trace
 rm boltztrap_up -r
 cd boltztrap_down
-sed -i '8c 300. 300.' boltztrap_down.intrans
+sed -i "8c $T1 $T2" boltztrap_down.intrans
 btp
 cd ..
 mv boltztrap_down/boltztrap_down.trace boltztrap_down.trace
@@ -45,17 +55,15 @@ function check_up(){
         mv case.intrans boltztrap_up/boltztrap_up.intrans
         mv case.energy boltztrap_up/boltztrap_up.energy
         mv case.struct boltztrap_up/boltztrap_up.struct
-        echo "No E_U"
+        cd boltztrap_up
+        sed -i "8c $T1 $T2" boltztrap_up.intrans
+        btp
+        cd ..
+        mv boltztrap_up/boltztrap_up.trace boltztrap_up.trace
+        rm boltztrap_up -r
     else
-        echo "up_dow"
         up_down
     fi
-    cd boltztrap_up
-    sed -i '8c 300. 300.' boltztrap_up.intrans
-    btp
-    cd ..
-    mv boltztrap_up/boltztrap_up.trace boltztrap_up.trace
-    rm boltztrap_up -r
 }
 
 check_up

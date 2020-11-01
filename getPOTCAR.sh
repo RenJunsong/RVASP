@@ -1,5 +1,7 @@
 #!/bin/bash
+## 修改POTCAR中的PBE所在位置 ##
 p=~/POTCAR/PAW_PBE
+## Done ##
 if [ $# = 1 ]; then
 cat $p/$1/POTCAR > POTCAR
 elif [ $# = 2 ]; then
