@@ -1,3 +1,4 @@
+import os
 '''
 Applies to python2 and may apply to python3
 When the vasp band is calculated, running this script can generate the band data file 'band.csv'. 
@@ -5,14 +6,12 @@ For systems with spin, band.csv (spin-up) and banddown.csv (spin-down) will be g
 By: Junsong Ren
 '''
 
-
 fermi = 0
 isspin = 0
 
-with open('DOSCAR', 'r') as fe:
-    felines = fe.readlines()
-    fermi = float(felines[5].split()[3])
 
+fermi_file=os.popen("grep E-fermi OUTCAR | tail -n 1")
+fermi=float(fermi_file.readlines()[0].split()[2])
 with open('EIGENVAL', 'r') as f:
     lines = f.readlines()
     if len(lines[8].split())==5:

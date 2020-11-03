@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-echo "error in par"
+echo "error in parameter"
 exit 0
 fi
 mkdir nofolder4copying
@@ -25,7 +25,9 @@ copybased 5.static $1
 function copy7(){
 mkdir $folderaddress/$1/7.chg
 copybased 7.chg $1
-cp 7.chg/CHGCAR  $folderaddress/$1/7.chg
+##cp 7.chg/CHGCAR  $folderaddress/$1/7.chg
+cp 7.chg/ELFCAR  $folderaddress/$1/7.chg
+cp 7.chg/ACF.dat  $folderaddress/$1/7.chg
 }
 
 function copy8(){
@@ -42,6 +44,8 @@ copybased 9.dos $1
 cp 9.dos/DOSCAR  $folderaddress/$1/9.dos
 cp 9.dos/pdos.csv $folderaddress/$1/9.dos
 cp 9.dos/EIGENVAL $folderaddress/$1/9.dos
+cp 9.dos/boltztrap_up.trace $folderaddress/$1/9.dos
+cp 9.dos/boltztrap_down.trace $folderaddress/$1/9.dos
 }
 
 function copy10(){
@@ -57,6 +61,7 @@ cp $1/INCAR $folderaddress/$2/$1
 cp $1/POSCAR $folderaddress/$2/$1
 cp $1/KPOINTS $folderaddress/$2/$1
 cp $1/OSZICAR $folderaddress/$2/$1
+cp $1/POTCAR $folderaddress/$2/$1
 }
 
 
