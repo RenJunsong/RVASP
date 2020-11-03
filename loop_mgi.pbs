@@ -23,7 +23,8 @@ outcheck=$(grep "Voluntary context switches:" OUTINFO)
 rm OUTINFO
 if [ -z "$outcheck" ]
 then
-echo "$(pwd) error" > $RVASP_path/errorinfo
+echo "$(pwd) OUTCAR is error" >> $RVASP_path/errorinfo
+echo $PBS_JOBID >> $RVASP_path/errorinfo
 exit
 fi
 }
@@ -190,7 +191,7 @@ done
 
 
 ####LLLL###Don`t delete this line###
-loop 30030 2
+main 6 2
 ##choose $temp1 $temp2
 ##loop $temp1 $temp2
 ##main $temp1 $temp2

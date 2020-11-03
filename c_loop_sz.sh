@@ -3,6 +3,7 @@
 ## change the set for loop file##
 file_name=c_loop_sz.sh
 change_file_name=loop_sz.lsf
+submit=bsub
 if [ -z "$1" ]; then
 echo "Error, usage: bash $RVASP_path/$file_name <-c> <-m> [temp1] [temp2]"
 echo "Please read the README ($RVASP_path) carefully"
@@ -28,4 +29,4 @@ else
 sed -i "${tmp}c loop $1 $2" ${RVASP_path}/${change_file_name}
 fi
 
-bsub ${RVASP_path}/${change_file_name}
+$submit ${RVASP_path}/${change_file_name}

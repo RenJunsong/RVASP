@@ -52,3 +52,11 @@ RVASP是为了将VASP计算过程中重复的操作自动化，结合了数据�
 
 ### rpotcar
 `rpotcar Sm_3 Ni_pv O`会生成相应的POTCAR
+
+### 计算方法
+
+#### defect
+参考`defect/README.md`
+
+#### slab
+参考`slab/README.md`

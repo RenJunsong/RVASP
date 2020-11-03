@@ -1,0 +1,37 @@
+##!----------------##
+4 uppercase letters are identifiers, please do not modify!!
+##!----------------##
+##This file is to assist in completing the setting of NELECT, please modify it to the corresponding value, the format is as follow:
+#Location_symbol(Don't modify) Name_of_atoms Number_of_atoms Element_valence Number_of_electrons
+
+AAAA Sm 16 3 11
+BBBB Ni 16 3 16
+OOOO O 48 -2 6
+
+#If spin is not considered, then magmom can be set freely without affecting the result.
+#4_P the value of ISPIN
+PPPP 2
+Magnetic moment of B under normal conditions(MNNM):
+-2 2*2 -2 2 2*-2 2*2 2*-2 2*2 2*-2 2
+Magnetic moment during replacement or B vacancy(MRRM):
+-2 2*2 -2 2 2*-2 2 2*-2 2*2 2*-2 2
+
+The coordination of Ai(CCAI):
+0.25 0.5 0.25
+The coordination of Bi(CCBI):
+0.25 0.5 0.25
+The coordination of Oi(CCOI):
+0.32 0.73 0.305
+The rows of vacancy of A(RRVA):
+11
+The rows of vacancy of B(RRVB):
+32
+The rows of vacancy of O(RRVO):
+47
+The rows of AB(RRAB):
+32
+The rows of BA(RRBA):
+11
+
+
+
