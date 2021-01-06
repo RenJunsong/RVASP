@@ -191,7 +191,7 @@ done
 
 
 ####LLLL###Don`t delete this line###
-main 6 2
+choose 11 1 pure                                       
 ##choose $temp1 $temp2
 ##loop $temp1 $temp2
 ##main $temp1 $temp2
