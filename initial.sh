@@ -13,9 +13,11 @@ alias rtotal="bash \$RVASP_path/getTOTEN.sh"
 alias rcopy="bash \$RVASP_path/copytool.sh"
 alias rmgi="bash \$RVASP_path/c_loop_mgi.sh"
 alias rsz="bash \$RVASP_path/c_loop_sz.sh"
+alias lsdir='for i in \`ls -d */\`; do ls \$i; done'
 ## RVASP Settings Done ##
 !
 source $HOME/.bashrc
+echo "please type 'source ~/.bashrc'"
 else
     echo "RVASP has been installed, or the ~/.bashrc file has not been deleted cleanly"
 fi
